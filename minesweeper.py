@@ -92,8 +92,11 @@ def play(dim_size=4,num_bombs=4):
         safe=game.dig(r,c)
         if not safe:
             print("You have dug a bomb, YOU HAVE LOST!")
-            game.dug.add((r,c) for r in range(game.dim_size) for c in range(game.dim_size))
+            # game.dug.add((r,c) for r in range(game.dim_size) for c in range(game.dim_size))
+            # game.dug=[(r,c) for r in range(game.dim_size) for c in range(game.dim_size)]
+            game.dug=set((r,c) for r in range(game.dim_size) for c in range(game.dim_size))
             game.display_board()
+            # print(game.board)
             return
     
     print("CONGRATULATIONS, YOU HAVE WON!") 

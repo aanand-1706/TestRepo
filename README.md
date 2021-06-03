@@ -8,3 +8,6 @@ Working on python projects:
 
   Second commit: 3-6-2021
   Working 
+
+  Third commit: 3-6-2021
+  Fixed the issue of revealing the whole board if the player loses
