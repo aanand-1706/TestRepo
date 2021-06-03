@@ -1,7 +1,7 @@
 import random
 import re
 
-class Board:
+class Game:
     def __init__(self,dim_size,num_bombs):
         self.dim_size=dim_size
         self.num_bombs=num_bombs
@@ -63,38 +63,40 @@ class Board:
 
     def display_board(self):
         for r in range(self.dim_size):
-            arr=['| ']
+            arr=[]
             for c in range(self.dim_size):
                 if (r,c) in self.dug:
                     arr+=[str(self.board[r][c])]
                 else:
                     arr+=[' ']
-            print('|'.join(arr))
+            row=['|','|'.join(arr),'|']
+            # print('|'.join(arr))
+            print(''.join(row))
 
 
 
 def play(dim_size=4,num_bombs=4):
-    board=Board(dim_size,num_bombs)
+    game=Game(dim_size,num_bombs)
+    safe=True
 
-    while len(board.dug)<board.dim_size**2 - num_bombs:
-        board.display_board()
+    while len(game.dug)<game.dim_size**2 - num_bombs:
+        game.display_board()
         user_input=re.split(',(\\s)*',input("Specify the location to dig"))
         r=int(user_input[0])
         c=int(user_input[-1])
-
-        if(r<0 or r>=board.dim_size or c<0 or c>=board.dim_size):
+        print(r,c)
+        if(r<0 or r>=game.dim_size or c<0 or c>=game.dim_size):
             print("Invalid location, enter input again")
             continue
 
-        safe=board.dig(r,c)
+        safe=game.dig(r,c)
         if not safe:
-            print("You have dug a bomb, YOU HAVE LOST")
-            board.dug.add((r,c) for r in range(board.dim_size) for c in range(board.dim_size))
-            board.display_board()
-            break
+            print("You have dug a bomb, YOU HAVE LOST!")
+            game.dug.add((r,c) for r in range(game.dim_size) for c in range(game.dim_size))
+            game.display_board()
+            return
     
-    if safe:
-        print("CONGRATULATIONS, YOU HAVE WON!")
+    print("CONGRATULATIONS, YOU HAVE WON!") 
 
 if __name__=='__main__':
     play()
